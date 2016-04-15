@@ -1,0 +1,8 @@
+env
+*.pyc
+*.pyo
+__pycache__
+db.sqlite3
+.DS_Store
+**/.fuse_hidden*
+**/staticfiles
