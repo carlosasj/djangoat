@@ -14,11 +14,11 @@ urlpatterns = [
         views.game_ini,
         name='game_ini'
     ),
-    # url(
-    #     r'^programacao/(\d+)/$',
-    #     subevent_details,
-    #     name='subevent_details'
-    # ),
+    url(
+        r'^game/answer/(\d+)/$',
+        views.game_answer,
+        name='game_answer'
+    ),
     # url(
     #     r'^vagas-nos-minicursos/$',
     #     courses_vacancies,
