@@ -19,11 +19,11 @@ urlpatterns = [
         views.game_answer,
         name='game_answer'
     ),
-    # url(
-    #     r'^vagas-nos-minicursos/$',
-    #     courses_vacancies,
-    #     name='courses_vacancies'
-    # ),
+    url(
+        r'^game/reset/$',
+        views.game_reset,
+        name='game_reset'
+    ),
     # url(
     #     r'^qrcode/(\d+)/$',
     #     qrcode,

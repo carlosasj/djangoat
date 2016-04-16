@@ -16,6 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+
+handler400 = 'game.views.bad_request'
+handler403 = 'game.views.bad_request'
+handler404 = 'game.views.bad_request'
+handler500 = 'game.views.bad_request'
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('game.urls')),

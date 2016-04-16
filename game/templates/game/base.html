@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Djangoat</title>
 	<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link type="text/css" rel="stylesheet" href="{% static 'css/app.css' %}">
 	<link rel="icon" href="{% static 'img/favicon.png' %}" />
 </head>
 <body>
@@ -24,8 +25,9 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
+					{% if request.session.state %}<li><a href="{% url 'game_reset' %}">Reset</a></li>{% endif %}
 					<li><a href="{% url 'game_ini' %}">Game</a></li>
-					<li><a href="#">About</a></li>
+					<li><a href="{% url 'index' %}">Home</a></li>
 				</ul>
 			</div>
 		</div><!-- /.container-fluid -->

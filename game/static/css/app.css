@@ -1,0 +1,12 @@
+.door {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+
+.door.choosed {
+    background: #337ab7;
+}
+
+.door.presenter {
+    background: #d9534f;
+}

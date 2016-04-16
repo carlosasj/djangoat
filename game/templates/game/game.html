@@ -1,17 +1,94 @@
 {% extends 'game/base.html' %}
 
-
+{% load staticfiles %}
 
 {% block base_content %}
 <div class="row text-center">
-	<div class="col-xs-4">
-		<a href="#"><div class="panel">PORTA 1</div></a>
-	</div>
-	<div class="col-xs-4">
-		<a href="#"><div class="panel">PORTA 2</div></a>
-	</div>
-	<div class="col-xs-4">
-		<a href="#"><div class="panel">PORTA 3</div></a>
+	<div class="col-xs-12">
+		{% if request.session.state == 'initial' %}
+		<h1>Escolha uma porta:</h1>
+		{% elif request.session.state == 'choose' %}
+		<h1>O Você escolheu a porta {{user_choose}} e o apresentador abriu a porta {{presenter_choose}}</h1>
+		{% else %}
+			{% if result == 'right' %}
+			<div class="col-xs-12">
+				<h1>Parabéns, você ganhou o prêmio!!!</h1>
+			</div>
+			{% else %}
+			<div class="col-xs-12">
+				<h1>Ooops... não foi dessa vez :(</h1>
+			</div>
+			{% endif %}
+		{% endif %}
 	</div>
 </div>
+
+{% if request.session.state == 'initial' %}
+<div class="row text-center">
+	<div class="col-xs-4">
+		<a href="{% url 'game_answer' 1 %}"><div class="panel door"><img style="max-height: 128px;" src="{% static 'img/question.png' %}"><br>PORTA 1</div></a>
+	</div>
+	<div class="col-xs-4">
+		<a href="{% url 'game_answer' 2 %}"><div class="panel door"><img style="max-height: 128px;" src="{% static 'img/question.png' %}"><br>PORTA 2</div></a>
+	</div>
+	<div class="col-xs-4">
+		<a href="{% url 'game_answer' 3 %}"><div class="panel door"><img style="max-height: 128px;" src="{% static 'img/question.png' %}"><br>PORTA 3</div></a>
+	</div>
+</div>
+{% elif request.session.state == 'choose' %}
+<div class="row text-center">
+	<div class="col-xs-4">
+		<div class="panel door {% if door1 == 'open' %}presenter{% elif door1 == 'choose' %}choosed{% endif %} ">
+			{% if door1 == 'open' %}<img style="max-height: 128px;" src="{% static 'img/goat.png' %}">{% else %}<img style="max-height: 128px;" src="{% static 'img/question.png' %}">{% endif %}
+			<br>PORTA 1{% if door1 == 'open' %}<br>(aberto pelo apresentador){% elif door1 == 'choose' %}<br>(sua escolha){% endif %}
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<div class="panel door {% if door2 == 'open' %}presenter{% elif door2 == 'choose' %}choosed{% endif %} ">
+			{% if door2 == 'open' %}<img style="max-height: 128px;" src="{% static 'img/goat.png' %}">{% else %}<img style="max-height: 128px;" src="{% static 'img/question.png' %}">{% endif %}
+			<br>PORTA 2{% if door2 == 'open' %}<br>(aberto pelo apresentador){% elif door2 == 'choose' %}<br>(sua escolha){% endif %}
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<div class="panel door {% if door3 == 'open' %}presenter{% elif door3 == 'choose' %}choosed{% endif %} ">
+			{% if door3 == 'open' %}<img style="max-height: 128px;" src="{% static 'img/goat.png' %}">{% else %}<img style="max-height: 128px;" src="{% static 'img/question.png' %}">{% endif %}
+			<br>PORTA 3{% if door3 == 'open' %}<br>(aberto pelo apresentador){% elif door3 == 'choose' %}<br>(sua escolha){% endif %}
+		</div>
+	</div>
+</div>
+<div class="row text-center">
+	<div class="col-xs-12"><h1>Você deseja trocar de porta?</h1></div>
+	<div class="col-xs-6">
+		<a href="{% url 'game_answer' 1 %}"><h3>Manter minha escolha</h3></a>
+	</div>
+	<div class="col-xs-6">
+		<a href="{% url 'game_answer' 2 %}"><h3>Trocar de porta</h3></a>
+	</div>
+</div>
+{% elif request.session.state == 'confirmed_chose' %}
+<div class="row text-center">
+	<div class="col-xs-4">
+		<div class="panel door {% if door1 == 'open' %}presenter{% elif door1 == 'choose' %}choosed{% endif %} ">
+			{% if request.session.prize == 1 %}<img style="max-height: 128px;" src="{% static 'img/prize.jpg' %}">{% else %}<img style="max-height: 128px;" src="{% static 'img/goat.png' %}">{% endif %}
+			<br>PORTA 1{% if door1 == 'open' %}<br>(aberto pelo apresentador){% elif door1 == 'choose' %}<br>(sua escolha){% endif %}
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<div class="panel door {% if door2 == 'open' %}presenter{% elif door2 == 'choose' %}choosed{% endif %} ">
+			{% if request.session.prize == 2 %}<img style="max-height: 128px;" src="{% static 'img/prize.jpg' %}">{% else %}<img style="max-height: 128px;" src="{% static 'img/goat.png' %}">{% endif %}
+			<br>PORTA 2{% if door2 == 'open' %}<br>(aberto pelo apresentador){% elif door2 == 'choose' %}<br>(sua escolha){% endif %}
+		</div>
+	</div>
+	<div class="col-xs-4">
+		<div class="panel door {% if door3 == 'open' %}presenter{% elif door3 == 'choose' %}choosed{% endif %} ">
+			{% if request.session.prize == 3 %}<img style="max-height: 128px;" src="{% static 'img/prize.jpg' %}">{% else %}<img style="max-height: 128px;" src="{% static 'img/goat.png' %}">{% endif %}
+			<br>PORTA 3{% if door3 == 'open' %}<br>(aberto pelo apresentador){% elif door3 == 'choose' %}<br>(sua escolha){% endif %}
+		</div>
+	</div>
+</div>
+
+<div class="row text-center">
+	<p><a class="btn btn-primary" href="{% url 'game_reset' %}">Jogar novamente</a></p>
+</div>
+{% endif %}
 {% endblock %}
