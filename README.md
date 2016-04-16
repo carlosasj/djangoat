@@ -1,9 +1,4 @@
-# Provinha II - Redes - Djangoat Game
-
-Carlos A. Schneider Junior		#USP: 9167910
-Isadora M. Mendes		        	#USP: 8479318
-Laís Helena C. de Miranda		  #USP: 8517032
-
+# Djangoat
 
 O jogo Djangoat é uma versão do jogo da “porta dos desesperados” ou do “Problema de Monty Hall”. Consiste em 3 portas nas quais atrás de uma conterá um goat, o objetivo do jogador será acertar a porta na qual o goat estará escondido.
   
